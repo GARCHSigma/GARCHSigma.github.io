@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamma Exposure Market Volatility | GARCHSigma</title>
+    <style>
+        :root {
+            --deep-navy: #0a2463;
+            --matte-gold: #c9a961;
+            --main-text: #121212;
+            --border-gray: #e5e7eb;
+            --bg-white: #ffffff;
+        }
+        [data-theme="dark"] {
+            --deep-navy: #7398d4;
+            --matte-gold: #d4b878;
+            --main-text: #e2e8f0;
+            --border-gray: #374151;
+            --bg-white: #111827;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;transition:background 0.35s ease,color 0.35s ease;}
+        html{scroll-behavior:smooth;}
+        body{max-width:820px;margin:0 auto;padding:48px 32px;font-family:Georgia,serif;line-height:2;color:var(--main-text);background:var(--bg-white);}
+        .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;padding-bottom:16px;border-bottom:1px solid var(--border-gray);}
+        .back-link{color:var(--deep-navy);text-decoration:none;font-weight:500;}
+        .theme-toggle{border:1px solid var(--border-gray);background:transparent;color:var(--deep-navy);padding:6px 12px;border-radius:6px;cursor:pointer;}
+        h1{font-size:26px;color:var(--deep-navy);margin-bottom:20px;line-height:1.4;}
+        h2{font-size:20px;margin:36px 0 12px;color:var(--deep-navy);}
+        p{margin-bottom:16px;text-align:justify;font-size:17px;}
+        ul{padding-left:28px;margin-bottom:20px;}
+        li{margin-bottom:8px;}
+        .meta{font-size:14px;color:#777;margin-bottom:30px;}
+        footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border-gray);font-size:14px;color:#6b7280;}
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a class="back-link" href="index.html">← Back to Home</a>
+        <button class="theme-toggle" id="themeBtn">🌙 Dark Mode</button>
+    </div>
+
+    <h1>Gamma Exposure Mechanism: How Options GEX Drives Short-Term Equity Market Volatility</h1>
+    <div class="meta">Published: 2026 | Research: Market Microstructure, Options Flow, Volatility Dynamics</div>
+
+    <h2>Abstract</h2>
+    <p>Options gamma exposure has become one of the most influential short-term driving factors in modern equity markets. Dealer hedging behavior triggered by net gamma position significantly amplifies intraday price fluctuation and forms a unique volatility feedback loop. This paper systematically sorts out the formation logic of market-wide GEX, analyzes the hedging trading logic of institutional option market makers, and verifies the causal relationship between negative gamma environment and market sharp fluctuations through high-frequency empirical data.</p>
+
+    <h2>1. Theoretical Foundation</h2>
+    <p>Gamma reflects the change rate of option delta. When the overall market is in negative gamma exposure, market makers need to sell underlying assets when prices fall and buy when prices rise, which will further exacerbate market volatility. On the contrary, positive gamma environment can effectively suppress intraday volatility and maintain market stability.</p>
+
+    <h2>2. Transmission Path</h2>
+    <ul>
+        <li>Retail and institutional option position aggregation forms total market gamma exposure</li>
+        <li>Dynamic delta hedging leads to directional synchronous trading</li>
+        <li>Hedging flow interferes with original market supply and demand balance</li>
+        <li>Volatility surge triggers derivative position adjustment, forming spiral fluctuation</li>
+    </ul>
+
+    <h2>3. Empirical Evidence</h2>
+    <p>Based on US stock market high-frequency position data and intraday volatility indicators, the research confirms that extreme negative gamma intervals have significantly higher crash probability and intraday amplitude. The indicator has strong timeliness for short-term market trend judgment and volatility interval prediction.</p>
+
+    <h2>4. Application Prospect</h2>
+    <p>GEX indicators can be combined with traditional volatility models to optimize short-term volatility interval forecasting, and provide effective reference for intraday position control and dynamic risk management of systematic strategies.</p>
+
+    <footer>
+        © GARCHSigma | Academic Research Only
+    </footer>
+
+    <script>
+        const toggleBtn = document.getElementById('themeBtn');
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            toggleBtn.innerText = '☀️ Light Mode';
+        }
+        toggleBtn.addEventListener('click', () => {
+            document.documentElement.getAttribute('data-theme') === 'dark'
+                ? (document.documentElement.setAttribute('data-theme','light'), toggleBtn.innerText='🌙 Dark Mode')
+                : (document.documentElement.setAttribute('data-theme','dark'), toggleBtn.innerText='☀️ Light Mode');
+        })
+    </script>
+</body>
+</html>
