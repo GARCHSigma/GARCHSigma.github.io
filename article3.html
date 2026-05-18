@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volatility Clustering & Risk Spillover | GARCHSigma</title>
+    <style>
+        :root {
+            --deep-navy: #0a2463;
+            --matte-gold: #c9a961;
+            --main-text: #121212;
+            --border-gray: #e5e7eb;
+            --bg-white: #ffffff;
+        }
+        [data-theme="dark"] {
+            --deep-navy: #7398d4;
+            --matte-gold: #d4b878;
+            --main-text: #e2e8f0;
+            --border-gray: #374151;
+            --bg-white: #111827;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;transition:background 0.35s ease,color 0.35s ease;}
+        html{scroll-behavior:smooth;}
+        body{max-width:820px;margin:0 auto;padding:48px 32px;font-family:Georgia,serif;line-height:2;color:var(--main-text);background:var(--bg-white);}
+        .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;padding-bottom:16px;border-bottom:1px solid var(--border-gray);}
+        .back-link{color:var(--deep-navy);text-decoration:none;font-weight:500;}
+        .theme-toggle{border:1px solid var(--border-gray);background:transparent;color:var(--deep-navy);padding:6px 12px;border-radius:6px;cursor:pointer;}
+        h1{font-size:26px;color:var(--deep-navy);margin-bottom:20px;line-height:1.4;}
+        h2{font-size:20px;margin:36px 0 12px;color:var(--deep-navy);}
+        p{margin-bottom:16px;text-align:justify;font-size:17px;}
+        ul{padding-left:28px;margin-bottom:20px;}
+        li{margin-bottom:8px;}
+        .meta{font-size:14px;color:#777;margin-bottom:30px;}
+        footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border-gray);font-size:14px;color:#6b7280;}
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a class="back-link" href="index.html">← Back to Home</a>
+        <button class="theme-toggle" id="themeBtn">🌙 Dark Mode</button>
+    </div>
+
+    <h1>Volatility Clustering and Cross-Market Risk Spillover: Empirical Evidence from Global Asset Classes</h1>
+    <div class="meta">Published: 2026 | Research: Cross-Asset Econometrics, Risk Transmission, Volatility Linkage</div>
+
+    <h2>Abstract</h2>
+    <p>With the continuous improvement of global capital market linkage, the volatility fluctuation of a single asset will quickly spread to other varieties and markets, forming obvious cross-market risk spillover effects. This paper takes global stocks, commodities, foreign exchange and bond markets as research samples, uses multi-dimensional volatility measurement indicators to verify the volatility clustering characteristics of different markets, and quantitatively identifies the direction, intensity and time lag of risk spillover between markets.</p>
+
+    <h2>1. Research Background</h2>
+    <p>Volatility clustering is the most typical stylized fact of financial time series. Under global capital flow synchronization, risk events in core markets will form chain reactions through investor sentiment, capital reallocation and macro expectation transmission, and break the independent fluctuation law of traditional single market.</p>
+
+    <h2>2. Research Method</h2>
+    <ul>
+        <li>Realized volatility calculation based on high-frequency transaction data</li>
+        <li>Volatility spillover index construction and dynamic trend tracking</li>
+        <li>Time-varying correlation measurement between different asset sectors</li>
+        <li>Distinguish risk overflow interval and stable linkage interval</li>
+    </ul>
+
+    <h2>3. Core Conclusion</h2>
+    <p>The global equity market is the main risk exporter in most cycles, and commodity and currency markets are sensitive risk receivers. The spillover intensity rises sharply during financial stress periods, and the cross-market volatility linkage will show obvious asymmetry. The research results can provide effective basis for global multi-asset portfolio risk dispersion and cross-market hedging strategy design.</p>
+
+    <h2>4. Extended Research Direction</h2>
+    <p>Subsequent research can further divide risk types such as policy impact, liquidity shock and emotional panic, and build targeted early warning models for different types of cross-market risk transmission.</p>
+
+    <footer>
+        © GARCHSigma | Academic Research Only
+    </footer>
+
+    <script>
+        const toggleBtn = document.getElementById('themeBtn');
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            toggleBtn.innerText = '☀️ Light Mode';
+        }
+        toggleBtn.addEventListener('click', () => {
+            document.documentElement.getAttribute('data-theme') === 'dark'
+                ? (document.documentElement.setAttribute('data-theme','light'), toggleBtn.innerText='🌙 Dark Mode')
+                : (document.documentElement.setAttribute('data-theme','dark'), toggleBtn.innerText='☀️ Light Mode');
+        })
+    </script>
+</body>
+</html>
