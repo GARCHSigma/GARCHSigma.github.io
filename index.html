@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GARCHSigma | Financial Econometrics & Volatility Research</title>
-    <!-- 极简访问统计 -->
     <script async src="https://cdn.jsdelivr.net/npm/umami@2/dist/script.js" data-website-id="garchsigma-site"></script>
     <style>
         :root {
@@ -43,6 +42,7 @@
             right: 20px;
             display: flex;
             gap: 10px;
+            z-index:999;
         }
         .theme-toggle, .lang-toggle {
             padding: 6px 12px;
@@ -75,12 +75,16 @@
             color:var(--matte-gold);
             text-decoration:none;
         }
+        nav {
+            margin-top:12px;
+        }
         nav a {
             margin: 0 18px;
             text-decoration: none;
             color: var(--deep-navy);
             font-weight: 500;
             font-size: 16px;
+            display: inline-block;
             transition: color 0.3s ease;
         }
         nav a:hover {color: var(--matte-gold);}
@@ -115,11 +119,11 @@
             font-size: 14px;
             color: #6b7280;
         }
-        /* 双语隐藏显示 */
-        .cn {display: none;}
-        .en {display: block;}
-        body[lang="zh-CN"] .cn {display: block;}
-        body[lang="zh-CN"] .en {display: none;}
+        /* 双语切换 */
+        .cn {display: none !important;}
+        .en {display: block !important;}
+        body[lang="zh-CN"] .cn {display: block !important;}
+        body[lang="zh-CN"] .en {display: none !important;}
     </style>
 </head>
 <body lang="en">
@@ -137,8 +141,8 @@
             金融计量学术研究者 | 学术邮箱：<a class="mail-link" href="mailto:research@garchsigma.com">research@garchsigma.com</a>
         </div>
         <nav>
-            <a href="#" class="en">Home</a>
-            <a href="#" class="cn">首页</a>
+            <a href="./" class="en">Home</a>
+            <a href="./" class="cn">首页</a>
             <a href="#research" class="en">Research</a>
             <a href="#research" class="cn">研究领域</a>
             <a href="#works" class="en">Works</a>
@@ -226,13 +230,10 @@
     <footer>
         <span class="en">© GARCHSigma · All content for academic econometric research only. No investment recommendations.</span>
         <span class="cn">© GARCHSigma 版权所有 · 内容仅限学术研究，不提供任何投资指导</span>
-        <br><br>
-        <span class="en">Site Visitor Statistics Enabled | Academic Non-Profit Platform</span>
-        <span class="cn">站点访问统计已启用 | 纯学术非盈利研究平台</span>
     </footer>
 
     <script>
-        // 语言切换
+        // 语言切换+永久记忆
         const langBtn = document.getElementById('langBtn');
         const bodyDom = document.body;
         if(localStorage.getItem('siteLang') === 'zh'){
