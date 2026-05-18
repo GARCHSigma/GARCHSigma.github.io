@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GARCHSigma | Financial Econometrics & Volatility Research</title>
+    <!-- 极简访问统计 -->
+    <script async src="https://cdn.jsdelivr.net/npm/umami@2/dist/script.js" data-website-id="garchsigma-site"></script>
     <style>
         :root {
             --deep-navy: #0a2463;
@@ -64,6 +66,15 @@
             color: var(--deep-navy);
             margin-bottom: 14px;
         }
+        .author-info{
+            font-size:16px;
+            color:var(--deep-navy);
+            margin-bottom:16px;
+        }
+        .mail-link{
+            color:var(--matte-gold);
+            text-decoration:none;
+        }
         nav a {
             margin: 0 18px;
             text-decoration: none;
@@ -90,6 +101,13 @@
         .note-item:hover {background: rgba(10, 36, 99, 0.05);}
         .note-link {color: var(--main-text); text-decoration: none;}
         .note-link:hover {color: var(--matte-gold);}
+        .citation-block{
+            padding:16px;
+            border:1px solid var(--border-gray);
+            border-radius:8px;
+            margin:20px 0;
+            font-size:15px;
+        }
         footer {
             margin-top: 80px;
             padding-top: 24px;
@@ -112,6 +130,12 @@
 
     <header>
         <h1>GARCHSigma</h1>
+        <div class="author-info en">
+            Researcher in Financial Econometrics | Contact: <a class="mail-link" href="mailto:research@garchsigma.com">research@garchsigma.com</a>
+        </div>
+        <div class="author-info cn">
+            金融计量学术研究者 | 学术邮箱：<a class="mail-link" href="mailto:research@garchsigma.com">research@garchsigma.com</a>
+        </div>
         <nav>
             <a href="#" class="en">Home</a>
             <a href="#" class="cn">首页</a>
@@ -119,6 +143,8 @@
             <a href="#research" class="cn">研究领域</a>
             <a href="#works" class="en">Works</a>
             <a href="#works" class="cn">研究成果</a>
+            <a href="#citation" class="en">Citation</a>
+            <a href="#citation" class="cn">引用格式</a>
             <a href="https://github.com/GARCHSigma" target="_blank">GitHub</a>
         </nav>
     </header>
@@ -176,11 +202,33 @@
                 </li>
             </ul>
         </section>
+
+        <section id="citation">
+            <h2 class="en">Standard Citation Format</h2>
+            <h2 class="cn">学术标准引用格式</h2>
+            <div class="citation-block en">
+                <strong>APA 7th</strong><br>
+                GARCHSigma. (2026). Financial Econometrics and Volatility Research Series. Retrieved from https://garchsigma.github.io
+                <br><br>
+                <strong>MLA</strong><br>
+                GARCHSigma. Financial Econometrics & Volatility Research, 2026, https://garchsigma.github.io.
+            </div>
+            <div class="citation-block cn">
+                <strong>中文社科引用格式</strong><br>
+                GARCHSigma. (2026). 金融计量与波动率研究系列学术文稿. 取自 https://garchsigma.github.io
+                <br><br>
+                <strong>知网通用引用</strong><br>
+                GARCHSigma. 高阶金融计量与时序波动率研究[EB/OL]. (2026), https://garchsigma.github.io.
+            </div>
+        </section>
     </main>
 
     <footer>
         <span class="en">© GARCHSigma · All content for academic econometric research only. No investment recommendations.</span>
         <span class="cn">© GARCHSigma 版权所有 · 内容仅限学术研究，不提供任何投资指导</span>
+        <br><br>
+        <span class="en">Site Visitor Statistics Enabled | Academic Non-Profit Platform</span>
+        <span class="cn">站点访问统计已启用 | 纯学术非盈利研究平台</span>
     </footer>
 
     <script>
