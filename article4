@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Model Overfitting & Robustness Test | GARCHSigma</title>
+    <style>
+        :root {
+            --deep-navy: #0a2463;
+            --matte-gold: #c9a961;
+            --main-text: #121212;
+            --border-gray: #e5e7eb;
+            --bg-white: #ffffff;
+        }
+        [data-theme="dark"] {
+            --deep-navy: #7398d4;
+            --matte-gold: #d4b878;
+            --main-text: #e2e8f0;
+            --border-gray: #374151;
+            --bg-white: #111827;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;transition:background 0.35s ease,color 0.35s ease;}
+        html{scroll-behavior:smooth;}
+        body{max-width:820px;margin:0 auto;padding:48px 32px;font-family:Georgia,serif;line-height:2;color:var(--main-text);background:var(--bg-white);}
+        .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;padding-bottom:16px;border-bottom:1px solid var(--border-gray);}
+        .back-link{color:var(--deep-navy);text-decoration:none;font-weight:500;}
+        .theme-toggle{border:1px solid var(--border-gray);background:transparent;color:var(--deep-navy);padding:6px 12px;border-radius:6px;cursor:pointer;}
+        h1{font-size:26px;color:var(--deep-navy);margin-bottom:20px;line-height:1.4;}
+        h2{font-size:20px;margin:36px 0 12px;color:var(--deep-navy);}
+        p{margin-bottom:16px;text-align:justify;font-size:17px;}
+        ul{padding-left:28px;margin-bottom:20px;}
+        li{margin-bottom:8px;}
+        .meta{font-size:14px;color:#777;margin-bottom:30px;}
+        footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border-gray);font-size:14px;color:#6b7280;}
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a class="back-link" href="index.html">← Back to Home</a>
+        <button class="theme-toggle" id="themeBtn">🌙 Dark Mode</button>
+    </div>
+
+    <h1>Overfitting Diagnosis and Robustness Validation for AI-Econometric Quantitative Models</h1>
+    <div class="meta">Published: 2026 | Research: Model Validation, Quantitative Strategy, Econometric Stability</div>
+
+    <h2>Abstract</h2>
+    <p>Intelligent quantitative models based on machine learning and deep learning are easy to fit historical market noise excessively in the training process, resulting in excellent in-sample performance and complete failure of out-of-sample actual application. This paper systematically summarizes the common manifestations, identification methods and suppression paths of overfitting in financial AI models, and constructs a complete set of sample-out robustness verification system suitable for time series quantitative research.</p>
+
+    <h2>1. Core Problem Analysis</h2>
+    <p>Financial market data has low signal-to-noise ratio, non-repeatable law and regime switching characteristics. Traditional machine learning training modes easily capture local random fluctuations as effective market laws. Once entering unseen new market environments, the model logic will completely fail.</p>
+
+    <h2>2. Overfitting Quantitative Diagnosis Method</h2>
+    <ul>
+        <li>In-sample and out-of-sample performance deviation degree detection</li>
+        <li>Time rolling window verification and multi-period cross inspection</li>
+        <li>Data disturbance test and feature importance stability test</li>
+        <li>Abnormal interval adaptability and extreme market resistance test</li>
+    </ul>
+
+    <h2>3. Robustness Optimization Scheme</h2>
+    <p>From the perspectives of feature screening, model structure constraint, training mechanism optimization and multi-scene sample expansion, this paper puts forward targeted improvement strategies, which can effectively balance the fitting ability and generalization ability of intelligent econometric models, and greatly improve the stability of quantitative models in actual market cycles.</p>
+
+    <h2>4. Practical Application Significance</h2>
+    <p>A complete robustness verification system can effectively eliminate false high-yield strategies formed by historical overfitting, standardize the research logic of AI financial modeling, and make intelligent quantitative research more in line with real market operation rules and long-term cycle characteristics.</p>
+
+    <footer>
+        © GARCHSigma | Academic Research Only
+    </footer>
+
+    <script>
+        const toggleBtn = document.getElementById('themeBtn');
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            toggleBtn.innerText = '☀️ Light Mode';
+        }
+        toggleBtn.addEventListener('click', () => {
+            document.documentElement.getAttribute('data-theme') === 'dark'
+                ? (document.documentElement.setAttribute('data-theme','light'), toggleBtn.innerText='🌙 Dark Mode')
+                : (document.documentElement.setAttribute('data-theme','dark'), toggleBtn.innerText='☀️ Light Mode');
+        })
+    </script>
+</body>
+</html>
