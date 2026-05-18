@@ -6,120 +6,149 @@
 <title>GARCHSigma 金融计量研究</title>
 <style>
 :root{
-    --主蓝:#0a2463;
-    --暗金:#c9a961;
-    --正文:#222;
-    --边框:#e5e7eb;
-    --底色:#ffffff;
+    --主深蓝:#0a2463;
+    --哑光金:#c9a961;
+    --正文色:#222222;
+    --浅边框:#e5e7eb;
+    --背景白:#ffffff;
 }
 [data-theme="dark"]{
-    --主蓝:#7398d4;
-    --暗金:#d4b878;
-    --正文:#eeeeee;
-    --边框:#374151;
-    --底色:#111827;
+    --主深蓝:#7398d4;
+    --哑光金:#d4b878;
+    --正文色:#eeeeee;
+    --浅边框:#374151;
+    --背景白:#111827;
 }
-*{margin:0;padding:0;box-sizing:border-box;transition:0.3s;}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    transition:background-color 0.3s ease, color 0.3s ease;
+}
 body{
-    max-width:800px;
+    max-width:820px;
     margin:0 auto;
-    padding:40px 20px;
-    font-family:宋体,serif;
-    background:var(--底色);
-    color:var(--正文);
-    line-height:1.8;
+    padding:60px 24px 40px;
+    font-family:Georgia, "Times New Roman", serif;
+    background-color:var(--背景白);
+    color:var(--正文色);
+    line-height:1.85;
 }
-.顶部按钮{
+/* 右上角深色按钮 */
+.theme-switch{
     position:fixed;
-    top:15px;
-    right:15px;
-}
-.切换按钮{
-    border:1px solid var(--边框);
-    background:transparent;
-    color:var(--主蓝);
-    padding:6px 12px;
-    border-radius:5px;
-    cursor:pointer;
-}
-头部{
-    text-align:center;
-    padding-bottom:25px;
-    border-bottom:1px solid var(--边框);
-    margin:50px 0 40px;
-}
-h1{
-    font-size:30px;
-    color:var(--主蓝);
-    margin-bottom:15px;
-}
-.导航 a{
-    margin:0 10px;
-    color:var(--主蓝);
-    text-decoration:none;
-    font-size:16px;
-}
-.导航 a:hover{
-    color:var(--暗金);
-}
-h2{
-    font-size:22px;
-    color:var(--主蓝);
-    margin:35px 0 15px;
-}
-p{margin-bottom:16px;}
-ul{padding-left:25px;margin-bottom:20px;}
-.文章条目{
-    padding:12px 0;
-    border-bottom:1px dashed var(--边框);
-}
-.文章条目 a{
-    color:var(--正文);
-    text-decoration:none;
-}
-.文章条目 a:hover{
-    color:var(--暗金);
-}
-.引用框{
-    border:1px solid var(--边框);
-    padding:15px;
+    top:18px;
+    right:18px;
+    padding:7px 14px;
+    border:1px solid var(--浅边框);
     border-radius:6px;
-    margin:15px 0;
-}
-底部{
-    margin-top:60px;
-    padding-top:20px;
-    border-top:1px solid var(--边框);
+    background:transparent;
+    color:var(--主深蓝);
+    cursor:pointer;
     font-size:14px;
 }
+/* 头部完美居中排版 */
+header{
+    text-align:center;
+    padding-bottom:28px;
+    border-bottom:1px solid var(--浅边框);
+    margin-bottom:50px;
+}
+h1{
+    font-size:36px;
+    color:var(--主深蓝);
+    margin-bottom:18px;
+    font-weight:600;
+}
+/* 导航栏均匀排版 */
+nav{
+    display:flex;
+    justify-content:center;
+    gap:36px;
+}
+nav a{
+    color:var(--主深蓝);
+    text-decoration:none;
+    font-size:17px;
+}
+nav a:hover{
+    color:var(--哑光金);
+}
+h2{
+    font-size:24px;
+    color:var(--主深蓝);
+    margin:45px 0 16px;
+}
+p{
+    margin-bottom:18px;
+    font-size:17px;
+}
+ul{
+    padding-left:30px;
+    margin-bottom:20px;
+}
+li{
+    margin-bottom:8px;
+    font-size:17px;
+}
+.article-item{
+    padding:14px 0;
+    border-bottom:1px dashed var(--浅边框);
+}
+.article-item a{
+    color:var(--正文色);
+    text-decoration:none;
+}
+.article-item a:hover{
+    color:var(--哑光金);
+}
+.cite-box{
+    border:1px solid var(--浅边框);
+    padding:18px;
+    border-radius:8px;
+    margin:20px 0;
+    font-size:15px;
+}
+footer{
+    margin-top:80px;
+    padding-top:25px;
+    border-top:1px solid var(--浅边框);
+    font-size:14px;
+    text-align:center;
+    color:#6b7280;
+}
+/* 手机端自适应 */
 @media(max-width:600px){
-    .导航{display:flex;flex-direction:column;gap:8px;}
-    .导航 a{margin:0;}
+    body{
+        padding-top:70px;
+    }
+    nav{
+        flex-direction:column;
+        gap:10px;
+    }
 }
 </style>
 </head>
 <body>
-<div class="顶部按钮">
-    <button class="切换按钮" id="深色切换">深色模式</button>
-</div>
+<button class="theme-switch" id="darkBtn">深色模式</button>
 
-<div class="头部">
+<header>
     <h1>GARCHSigma</h1>
-    <div class="导航">
+    <nav>
         <a href="./">首页</a>
         <a href="#领域">研究领域</a>
         <a href="#文章">研究文章</a>
         <a href="#引用">引用格式</a>
-    </div>
-</div>
+    </nav>
+</header>
 
-<div>
+<section>
     <h2>关于本站</h2>
     <p>本站专注高阶金融计量、波动率建模与非线性时间序列研究，内容涵盖条件异方差模型、高频市场分析、跨资产风险结构与系统化量化框架。</p>
     <p>本站仅作为学术研究存档平台，所有内容仅限学术参考，不构成任何投资建议。</p>
-</div>
+</section>
 
-<div id="领域">
+<section id="领域">
     <h2>核心研究方向</h2>
     <ul>
         <li>GARCH拓展模型、多元随机波动率与长周期波动预测</li>
@@ -128,38 +157,38 @@ ul{padding-left:25px;margin-bottom:20px;}
         <li>量化框架搭建、风险配置、尾部风控与回撤约束设计</li>
         <li>宏观周期研判、情绪定价与波动率溢价实证分析</li>
     </ul>
-</div>
+</section>
 
-<div id="文章">
+<section id="文章">
     <h2>研究文章</h2>
-    <div class="文章条目"><a href="article1.html">GARCH-GNN混合波动率预测框架</a></div>
-    <div class="文章条目"><a href="article2.html">伽马敞口与短期市场波动机制</a></div>
-    <div class="文章条目"><a href="article3.html">波动率集聚与跨市场风险溢出</a></div>
-    <div class="文章条目"><a href="article4.html">AI计量模型过拟合与稳健性检验</a></div>
-</div>
+    <div class="article-item"><a href="article1.html">GARCH-GNN混合波动率预测框架</a></div>
+    <div class="article-item"><a href="article2.html">伽马敞口与短期市场波动机制</a></div>
+    <div class="article-item"><a href="article3.html">波动率集聚与跨市场风险溢出</a></div>
+    <div class="article-item"><a href="article4.html">AI计量模型过拟合与稳健性检验</a></div>
+</section>
 
-<div id="引用">
+<section id="引用">
     <h2>学术引用格式</h2>
-    <div class="引用框">
-    GARCHSigma. 金融计量与波动率研究系列学术文稿[EB/OL].2026.
+    <div class="cite-box">
+        GARCHSigma. 高阶金融计量与时序波动率研究[EB/OL]. (2026).
     </div>
-</div>
+</section>
 
-<div class="底部">
-    © 2026 GARCHSigma 仅限学术研究交流
-</div>
+<footer>
+© 2026 GARCHSigma · 仅限非盈利学术研究交流
+</footer>
 
 <script>
-let btn=document.getElementById("深色切换");
-btn.onclick=function(){
-    if(document.documentElement.getAttribute("data-theme")=="dark"){
-        document.documentElement.removeAttribute("data-theme");
-        btn.innerText="深色模式";
+const btn = document.getElementById('darkBtn');
+btn.addEventListener('click', ()=>{
+    if(document.documentElement.getAttribute('data-theme') === 'dark'){
+        document.documentElement.removeAttribute('data-theme');
+        btn.innerText = '深色模式';
     }else{
-        document.documentElement.setAttribute("data-theme","dark");
-        btn.innerText="浅色模式";
+        document.documentElement.setAttribute('data-theme','dark');
+        btn.innerText = '浅色模式';
     }
-}
+})
 </script>
 </body>
 </html>
