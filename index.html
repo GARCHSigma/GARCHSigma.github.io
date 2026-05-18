@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Language" content="zh-CN">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GARCHSigma | Financial Econometrics & AI Quant Research</title>
+    <title>GARCHSigma | 金融计量与AI量化研究</title>
     <style>
         :root {
             --deep-navy: #0a2463;
@@ -12,61 +13,94 @@
             --border-gray: #e5e7eb;
             --bg-white: #ffffff;
         }
+
+        [data-theme="dark"] {
+            --deep-navy: #7398d4;
+            --matte-gold: #d4b878;
+            --main-text: #e2e8f0;
+            --border-gray: #374151;
+            --bg-white: #111827;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: background-color 0.35s ease, color 0.35s ease;
+        }
+        html {
+            scroll-behavior: smooth;
         }
         body {
-            max-width: 800px;
+            max-width: 820px;
             margin: 0 auto;
             padding: 48px 32px;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-            line-height: 1.85;
+            font-family: Georgia, "Noto Serif SC", serif;
+            line-height: 1.95;
             color: var(--main-text);
             background-color: var(--bg-white);
         }
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 6px 12px;
+            border: 1px solid var(--border-gray);
+            border-radius: 6px;
+            background: transparent;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--deep-navy);
+        }
         header {
+            text-align: center;
             border-bottom: 1px solid var(--border-gray);
             padding-bottom: 24px;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
         h1 {
-            font-size: 30px;
+            font-size: 34px;
             font-weight: 600;
+            letter-spacing: 1px;
             color: var(--deep-navy);
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
         nav a {
-            margin-right: 28px;
+            margin: 0 18px;
             text-decoration: none;
             color: var(--deep-navy);
             font-weight: 500;
             font-size: 16px;
-            transition: color 0.25s ease;
+            transition: color 0.3s ease;
         }
         nav a:hover {
             color: var(--matte-gold);
         }
         h2 {
-            font-size: 22px;
-            margin: 36px 0 12px;
+            font-size: 23px;
+            margin: 40px 0 14px;
             color: var(--deep-navy);
+            font-weight: 600;
         }
         p {
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             font-size: 17px;
+            text-align: justify;
         }
         ul {
-            padding-left: 24px;
-            margin-bottom: 24px;
+            padding-left: 30px;
+            margin-bottom: 30px;
         }
         li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-size: 17px;
         }
+        .note-item {
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--border-gray);
+        }
         footer {
-            margin-top: 64px;
+            margin-top: 80px;
             padding-top: 24px;
             border-top: 1px solid var(--border-gray);
             font-size: 14px;
@@ -75,43 +109,68 @@
     </style>
 </head>
 <body>
+    <button class="theme-toggle" id="themeBtn">🌙 暗黑模式</button>
+
     <header>
         <h1>GARCHSigma</h1>
         <nav>
-            <a href="/">Home</a>
-            <a href="#research">Research</a>
-            <a href="#writing">Writing</a>
-            <a href="https://github.com/GARCHSigma">GitHub</a>
+            <a href="#">首页</a>
+            <a href="#research">研究</a>
+            <a href="#writing">写作</a>
+            <a href="https://github.com/GARCHSigma" target="_blank">GitHub</a>
         </nav>
     </header>
 
     <main>
         <section>
-            <h2>About</h2>
-            <p>Quantitative researcher specializing in financial econometrics, GARCH volatility modelling, time series analysis, and AI-driven systematic quantitative research.</p>
-            <p>This homepage serves as a dedicated archive for research notes, model experiments, and macro-market cycle observations.</p>
+            <h2>关于</h2>
+            <p>GARCHSigma，专注于金融计量经济学领域的独立定量研究员。长期深耕异方差波动率建模、高频时间序列计量、跨资产风险因子与系统性量化策略研究。</p>
+            <p>本站点为个人专属学术存档平台，用于沉淀GARCH系列模型、深度学习金融应用、市场周期观测与尾部风险研究的长期笔记、实验记录与深度思考。秉持中立、严谨、第一性原理的研究态度，不提供任何投资建议。</p>
         </section>
 
         <section id="research">
-            <h2>Research Interests</h2>
+            <h2>核心研究方向</h2>
             <ul>
-                <li>GARCH family & multivariate volatility forecasting</li>
-                <li>Deep learning & GNN applied to financial time series</li>
-                <li>Cross-asset volatility & gamma exposure dynamics</li>
-                <li>Algorithmic strategy design & tail risk modelling</li>
+                <li>GARCH族扩展模型、多元随机波动率建模与长周期波动率预测</li>
+                <li>图神经网络、深度学习在非平稳金融时间序列上的实证应用</li>
+                <li>跨大类资产联动、期权伽马敞口、市场微观流动性动态研究</li>
+                <li>系统化量化策略构建、风险平价、尾部风险对冲与回撤控制</li>
+                <li>宏观周期、市场情绪与波动率溢价的长期关联实证</li>
             </ul>
         </section>
 
         <section id="writing">
-            <h2>Latest Research Notes</h2>
+            <h2>最新研究随笔</h2>
             <ul>
-                <li>Coming soon — Technical publications & market research blog posts</li>
+                <li class="note-item">【即将上线】GARCH-GNN 混合波动率预测模型架构与回测结果</li>
+                <li class="note-item">【即将上线】美股GEX伽马敞口对短期市场波动的影响机制</li>
+                <li class="note-item">【即将上线】多资产波动率聚类与跨市场风险溢出效应分析</li>
+                <li class="note-item">【即将上线】AI量化模型的过拟合防范与样本外稳健性检验</li>
             </ul>
         </section>
     </main>
 
     <footer>
-        © GARCHSigma | All content is for academic and informational purposes only.
+        © GARCHSigma · 所有内容仅用于学术与研究参考，不构成任何投资意见
     </footer>
+
+    <script>
+        const toggleBtn = document.getElementById('themeBtn');
+        // 自动跟随系统深色偏好
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            toggleBtn.innerText = '☀️ 浅色模式';
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            if (document.documentElement.getAttribute('data-theme') === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                toggleBtn.innerText = '🌙 暗黑模式';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                toggleBtn.innerText = '☀️ 浅色模式';
+            }
+        })
+    </script>
 </body>
 </html>
