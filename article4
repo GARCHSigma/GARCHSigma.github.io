@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Language" content="en">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Model Overfitting & Robustness Test | GARCHSigma</title>
+    <script async src="https://cdn.jsdelivr.net/npm/umami@2/dist/script.js" data-website-id="garchsigma-site"></script>
     <style>
         :root {
             --deep-navy: #0a2463;
@@ -22,53 +22,104 @@
         }
         *{margin:0;padding:0;box-sizing:border-box;transition:background 0.35s ease,color 0.35s ease;}
         html{scroll-behavior:smooth;}
-        body{max-width:820px;margin:0 auto;padding:48px 32px;font-family:Georgia,serif;line-height:2;color:var(--main-text);background:var(--bg-white);}
+        body{
+            max-width:820px;margin:0 auto;padding:48px 32px;
+            font-family:Georgia,serif;line-height:2;color:var(--main-text);background:var(--bg-white);
+        }
         .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;padding-bottom:16px;border-bottom:1px solid var(--border-gray);}
         .back-link{color:var(--deep-navy);text-decoration:none;font-weight:500;}
-        .theme-toggle{border:1px solid var(--border-gray);background:transparent;color:var(--deep-navy);padding:6px 12px;border-radius:6px;cursor:pointer;}
+        .btn-group{display:flex;gap:10px;}
+        .theme-toggle,.lang-toggle{border:1px solid var(--border-gray);background:transparent;color:var(--deep-navy);padding:6px 12px;border-radius:6px;cursor:pointer;font-size:14px;}
         h1{font-size:26px;color:var(--deep-navy);margin-bottom:20px;line-height:1.4;}
         h2{font-size:20px;margin:36px 0 12px;color:var(--deep-navy);}
         p{margin-bottom:16px;text-align:justify;font-size:17px;}
         ul{padding-left:28px;margin-bottom:20px;}
         li{margin-bottom:8px;}
         .meta{font-size:14px;color:#777;margin-bottom:30px;}
+        .author-sign{margin:30px 0;padding-top:20px;border-top:1px dashed var(--border-gray);font-size:15px;}
+        .mail-link{color:var(--matte-gold);text-decoration:none;}
         footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border-gray);font-size:14px;color:#6b7280;}
+        .cn {display: none;}
+        .en {display: block;}
+        body[lang="zh-CN"] .cn {display: block;}
+        body[lang="zh-CN"] .en {display: none;}
     </style>
 </head>
-<body>
+<body lang="en">
     <div class="top-bar">
         <a class="back-link" href="index.html">← Back to Home</a>
-        <button class="theme-toggle" id="themeBtn">🌙 Dark Mode</button>
+        <div class="btn-group">
+            <button class="lang-toggle" id="langBtn">中文</button>
+            <button class="theme-toggle" id="themeBtn">🌙 Dark Mode</button>
+        </div>
     </div>
 
-    <h1>Overfitting Diagnosis and Robustness Validation for AI-Econometric Quantitative Models</h1>
-    <div class="meta">Published: 2026 | Research: Model Validation, Quantitative Strategy, Econometric Stability</div>
+    <h1 class="en">Overfitting Diagnosis and Robustness Validation for AI-Econometric Quantitative Models</h1>
+    <h1 class="cn">AI计量模型过拟合判别与样本外稳健性检验</h1>
 
-    <h2>Abstract</h2>
-    <p>Intelligent quantitative models based on machine learning and deep learning are easy to fit historical market noise excessively in the training process, resulting in excellent in-sample performance and complete failure of out-of-sample actual application. This paper systematically summarizes the common manifestations, identification methods and suppression paths of overfitting in financial AI models, and constructs a complete set of sample-out robustness verification system suitable for time series quantitative research.</p>
+    <div class="meta en">Published: 2026 | Research: Model Validation, Quantitative Strategy, Econometric Stability</div>
+    <div class="meta cn">发布时间：2026 | 研究方向：模型检验、量化策略、计量稳定性</div>
 
-    <h2>1. Core Problem Analysis</h2>
-    <p>Financial market data has low signal-to-noise ratio, non-repeatable law and regime switching characteristics. Traditional machine learning training modes easily capture local random fluctuations as effective market laws. Once entering unseen new market environments, the model logic will completely fail.</p>
+    <h2 class="en">Abstract</h2>
+    <h2 class="cn">摘要</h2>
 
-    <h2>2. Overfitting Quantitative Diagnosis Method</h2>
-    <ul>
-        <li>In-sample and out-of-sample performance deviation degree detection</li>
-        <li>Time rolling window verification and multi-period cross inspection</li>
-        <li>Data disturbance test and feature importance stability test</li>
-        <li>Abnormal interval adaptability and extreme market resistance test</li>
+    <p class="en">Machine learning based quantitative models easily fit historical market noise excessively, resulting in excellent in-sample performance but failed out-of-sample practical application.</p>
+    <p class="cn">基于机器学习构建的量化模型极易过度拟合历史市场噪声，出现样本内表现优异、实盘样本外完全失效的普遍问题。</p>
+
+    <h2 class="en">1. Core Problem</h2>
+    <h2 class="cn">1. 核心问题</h2>
+    <p class="en">Financial data features low signal-to-noise ratio and non-repeatable market rules. Traditional training modes tend to regard random fluctuations as effective trading laws.</p>
+    <p class="cn">金融数据具备低信噪比、规律不可复刻等特性，传统训练模式极易将随机波动当作有效市场规律进行学习。</p>
+
+    <h2 class="en">2. Diagnosis System</h2>
+    <h2 class="cn">2. 判别检验体系</h2>
+    <ul class="en">
+        <li>In-sample and out-of-sample performance deviation inspection</li>
+        <li>Time rolling window verification and multi-cycle cross testing</li>
+        <li>Extreme market environment adaptability assessment</li>
+    </ul>
+    <ul class="cn">
+        <li>样本内外收益与波动偏差程度检测</li>
+        <li>时序滚动窗口验证与多周期交叉检验</li>
+        <li>极端行情环境下模型适配能力评估</li>
     </ul>
 
-    <h2>3. Robustness Optimization Scheme</h2>
-    <p>From the perspectives of feature screening, model structure constraint, training mechanism optimization and multi-scene sample expansion, this paper puts forward targeted improvement strategies, which can effectively balance the fitting ability and generalization ability of intelligent econometric models, and greatly improve the stability of quantitative models in actual market cycles.</p>
+    <h2 class="en">Practical Significance</h2>
+    <h2 class="cn">实践意义</h2>
+    <p class="en">Standardized robustness verification can eliminate pseudo high-yield strategies caused by historical overfitting and make intelligent econometric research more practical.</p>
+    <p class="cn">标准化稳健性检验体系能够剔除历史过拟合催生的伪高收益策略，让智能计量研究更加贴合真实市场运行逻辑。</p>
 
-    <h2>4. Practical Application Significance</h2>
-    <p>A complete robustness verification system can effectively eliminate false high-yield strategies formed by historical overfitting, standardize the research logic of AI financial modeling, and make intelligent quantitative research more in line with real market operation rules and long-term cycle characteristics.</p>
+    <div class="author-sign en">
+        Researcher: GARCHSigma | Contact: <a class="mail-link" href="mailto:research@garchsigma.com">research@garchsigma.com</a>
+    </div>
+    <div class="author-sign cn">
+        研究者：GARCHSigma | 学术邮箱：<a class="mail-link" href="mailto:research@garchsigma.com">research@garchsigma.com</a>
+    </div>
 
     <footer>
-        © GARCHSigma | Academic Research Only
+        <span class="en">© GARCHSigma | Academic Research Only · Non-profit academic sharing</span>
+        <span class="cn">© GARCHSigma | 仅限学术研究 · 非盈利学术交流</span>
     </footer>
 
     <script>
+        const langBtn = document.getElementById('langBtn');
+        const bodyDom = document.body;
+        if(localStorage.getItem('siteLang') === 'zh'){
+            bodyDom.setAttribute('lang','zh-CN');
+            langBtn.innerText = 'English';
+        }
+        langBtn.addEventListener('click',()=>{
+            if(bodyDom.lang === 'en'){
+                bodyDom.setAttribute('lang','zh-CN');
+                langBtn.innerText = 'English';
+                localStorage.setItem('siteLang','zh');
+            }else{
+                bodyDom.setAttribute('lang','en');
+                langBtn.innerText = '中文';
+                localStorage.setItem('siteLang','en');
+            }
+        })
+
         const toggleBtn = document.getElementById('themeBtn');
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.setAttribute('data-theme', 'dark');
