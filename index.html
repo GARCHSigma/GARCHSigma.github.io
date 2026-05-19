@@ -65,6 +65,7 @@ nav{
     display:flex;
     justify-content:center;
     gap:36px;
+    flex-wrap:wrap;
 }
 nav a{
     color:var(--主深蓝);
@@ -73,6 +74,14 @@ nav a{
 }
 nav a:hover{
     color:var(--哑光金);
+}
+nav a.nav-highlight{
+    color:var(--哑光金);
+    font-weight:600;
+    border-bottom:2px solid var(--哑光金);
+}
+nav a.nav-highlight:hover{
+    color:var(--主深蓝);
 }
 h2{
     font-size:24px;
@@ -139,6 +148,7 @@ footer{
         <a href="#领域">研究领域</a>
         <a href="#文章">研究文章</a>
         <a href="./Situational-Awareness-LP-Report.html">LP机构策略报告</a>
+        <a href="https://lib.garch.space" class="nav-highlight" target="_blank">📚 量化资料库</a>
         <a href="#引用">引用格式</a>
     </nav>
 </header>
