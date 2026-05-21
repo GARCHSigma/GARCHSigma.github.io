@@ -23,7 +23,7 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    transition:background-color 0.3s ease, color 0.3s ease;
+    transition:background-color 0.3s ease, color: 0.3s ease;
 }
 body{
     max-width:820px;
@@ -34,7 +34,6 @@ body{
     color:var(--正文色);
     line-height:1.85;
 }
-/* 右上角深色按钮 */
 .theme-switch{
     position:fixed;
     top:18px;
@@ -47,7 +46,6 @@ body{
     cursor:pointer;
     font-size:14px;
 }
-/* 头部完美居中排版 */
 header{
     text-align:center;
     padding-bottom:28px;
@@ -60,7 +58,6 @@ h1{
     margin-bottom:18px;
     font-weight:600;
 }
-/* 导航栏均匀排版 */
 nav{
     display:flex;
     justify-content:center;
@@ -107,6 +104,7 @@ li{
 .article-item a{
     color:var(--正文色);
     text-decoration:none;
+    font-size:18px;
 }
 .article-item a:hover{
     color:var(--哑光金);
@@ -126,7 +124,6 @@ footer{
     text-align:center;
     color:#6b7280;
 }
-/* 手机端自适应 */
 @media(max-width:600px){
     body{
         padding-top:70px;
@@ -147,10 +144,8 @@ footer{
         <a href="./">首页</a>
         <a href="#领域">研究领域</a>
         <a href="#文章">研究文章</a>
-        
-        <a href="./AI-Inflection-Report.html">📊 AI产业转折点</a>
+        <a href="./reading-notes/index.html" class="nav-highlight">📖 读书笔记</a>
         <a href="https://lib.garch.space" target="_blank">📚 量化资料库</a>
-        <a href="./reading-notes/index.html">📖 读书笔记</a>
         <a href="#引用">引用格式</a>
     </nav>
 </header>
