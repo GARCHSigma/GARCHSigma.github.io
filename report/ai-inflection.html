@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GARCH QUANT | Institutional Research Web Report</title>
+  <meta name="description" content="GARCH QUANT institutional research web report template. Reusable single-file HTML with dashboard, thesis tables, catalysts, risks, and trader summary." />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --space-1: .25rem; --space-2: .5rem; --space-3: .75rem; --space-4: 1rem;
+      --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
+      --space-12: 3rem; --space-16: 4rem; --space-20: 5rem; --space-24: 6rem;
+      --radius-sm: .375rem; --radius-md: .5rem; --radius-lg: .75rem; --radius-xl: 1rem; --radius-full: 9999px;
+      --transition-interactive: 180ms cubic-bezier(.16,1,.3,1);
+      --color-bg:#f4f2ed; --color-surface:#fbfaf7; --color-surface-2:#ffffff; --color-surface-offset:#ece9e2;
+      --color-surface-dynamic:#dfddd8; --color-border:#d6d1c7; --color-divider:#ddd8cf;
+      --color-text:#221f18; --color-text-muted:#6a665e; --color-text-faint:#9b978d; --color-text-inverse:#f9f8f3;
+      --color-primary:#0a676d; --color-primary-hover:#084f54; --color-primary-highlight:#d5e5e2;
+      --color-success:#2d6f42; --color-warning:#9a5a16; --color-error:#a44162; --color-blue:#2c6fb6; --color-purple:#7850bc;
+      --shadow-sm:0 1px 2px oklch(0.2 0.01 80 / 0.06); --shadow-md:0 10px 28px oklch(0.2 0.01 80 / 0.08); --shadow-lg:0 22px 54px oklch(0.2 0.01 80 / 0.12);
+    }
+    [data-theme="dark"] {
+      --color-bg:#101112; --color-surface:#171819; --color-surface-2:#1b1d1e; --color-surface-offset:#202223;
+      --color-surface-dynamic:#2b2f30; --color-border:#333839; --color-divider:#262a2b;
+      --color-text:#e3e0d8; --color-text-muted:#ada99f; --color-text-faint:#716d66; --color-text-inverse:#131415;
+      --color-primary:#58a2ad; --color-primary-hover:#7ab9c1; --color-primary-highlight:#233638;
+      --color-success:#74bb93; --color-warning:#d8a45a; --color-error:#d97d9c; --color-blue:#76a9ea; --color-purple:#ba9df1;
+      --shadow-sm:0 1px 2px oklch(0 0 0 / 0.2); --shadow-md:0 10px 28px oklch(0 0 0 / 0.32); --shadow-lg:0 22px 54px oklch(0 0 0 / 0.46);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{-moz-text-size-adjust:none;-webkit-text-size-adjust:none;text-size-adjust:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;scroll-behavior:smooth;scroll-padding-top:var(--space-16)}
+    body{min-height:100dvh;line-height:1.6;font-family:'Satoshi',ui-sans-serif,system-ui,sans-serif;font-size:var(--text-base);color:var(--color-text);background:
+      radial-gradient(circle at top right, color-mix(in oklab, var(--color-primary) 12%, transparent), transparent 28%),
+      linear-gradient(180deg, color-mix(in oklab,var(--color-bg) 96%, black), var(--color-bg));}
+    img,svg,canvas{display:block;max-width:100%;height:auto}
+    table{border-collapse:collapse;width:100%}
+    button,a,input,textarea,select{font:inherit;color:inherit}
+a{color:inherit;text-decoration:none;transition:color var(--transition-interactive),background var(--transition-interactive),border-color var(--transition-interactive),box-shadow var(--transition-interactive)}
+    button{cursor:pointer;border:none;background:none;transition:color var(--transition-interactive),background var(--transition-interactive),border-color var(--transition-interactive),box-shadow var(--transition-interactive)}
+    :focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:var(--radius-sm)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-variant-numeric:tabular-nums lining-nums}
+    .report-shell{display:grid;grid-template-columns:300px 1fr;grid-template-rows:auto 1fr;min-height:100dvh}
+    .sidebar{grid-row:1 / -1;background:color-mix(in oklab,var(--color-surface) 92%, black);border-right:1px solid color-mix(in oklab,var(--color-text) 10%, transparent);padding:var(--space-6) var(--space-4);overflow-y:auto;display:flex;flex-direction:column;gap:var(--space-6);overscroll-behavior:contain}
+    .topbar{grid-column:2;position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:var(--space-4) var(--space-6);background:color-mix(in oklab,var(--color-bg) 84%, transparent);backdrop-filter:blur(14px);border-bottom:1px solid color-mix(in oklab,var(--color-text) 10%, transparent)}
+    .content{grid-column:2;overflow-y:auto;display:grid;gap:var(--space-6);padding:var(--space-6);overscroll-behavior:contain;content-visibility:auto}
+    .brand{display:flex;align-items:center}
+    .brand-text strong{display:block;font-size:var(--text-sm);letter-spacing:.12em;text-transform:uppercase}
+    .brand-text span{display:block;font-size:var(--text-xs);color:var(--color-text-muted)}
+    .nav-group{display:grid;gap:var(--space-2)}
+    .nav-title{padding:0 var(--space-3);font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.14em;color:var(--color-text-faint)}
+    .nav-link{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);padding:.85rem .95rem;border-radius:var(--radius-lg);border:1px solid transparent;font-size:var(--text-sm);color:var(--color-text-muted)}
+    .nav-link:hover,.nav-link.active{background:color-mix(in oklab,var(--color-primary) 10%, var(--color-surface));border-color:color-mix(in oklab,var(--color-primary) 30%, transparent);color:var(--color-text)}
+    .card{background:linear-gradient(180deg,color-mix(in oklab,var(--color-surface) 96%, white),color-mix(in oklab,var(--color-surface-2) 94%, black));border:1px solid color-mix(in oklab,var(--color-text) 10%, transparent);border-radius:var(--radius-xl);box-shadow:var(--shadow-sm)}
+    .card-pad{padding:var(--space-6)}
+    .section{display:grid;gap:var(--space-4)}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap}
+    .section-head h2{font-size:var(--text-lg);line-height:1.1}
+    .section-head p{font-size:var(--text-sm);color:var(--color-text-muted);max-width:70ch}
+    .eyebrow{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.14em;color:var(--color-primary)}
+    .page-title{font-size:var(--text-xl);line-height:1.05;max-width:16ch}
+    .lead{max-width:74ch;color:var(--color-text-muted)}
+    .pill{display:inline-flex;align-items:center;gap:.45rem;padding:.38rem .72rem;border-radius:var(--radius-full);font-size:var(--text-xs);border:1px solid color-mix(in oklab,var(--color-text) 12%, transparent);background:color-mix(in oklab,var(--color-surface) 84%, black);color:var(--color-text-muted)}
+    .pill.primary{background:color-mix(in oklab,var(--color-primary) 12%, var(--color-surface));border-color:color-mix(in oklab,var(--color-primary) 34%, transparent);color:var(--color-primary)}
+    .pill.positive{background:color-mix(in oklab,var(--color-success) 12%, var(--color-surface));border-color:color-mix(in oklab,var(--color-success) 35%, transparent);color:var(--color-success)}
+    .pill.warning{background:color-mix(in oklab,var(--color-warning) 12%, var(--color-surface));border-color:color-mix(in oklab,var(--color-warning) 35%, transparent);color:var(--color-warning)}
+    .pill.negative{background:color-mix(in oklab,var(--color-error) 12%, var(--color-surface));border-color:color-mix(in oklab,var(--color-error) 35%, transparent);color:var(--color-error)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:44px;padding:.72rem 1rem;border-radius:var(--radius-lg);border:1px solid color-mix(in oklab,var(--color-text) 12%, transparent)}
+    .btn-primary{background:var(--color-primary);color:var(--color-text-inverse);border-color:transparent}
+    .btn-primary:hover{background:var(--color-primary-hover)}
+    .btn-secondary{background:color-mix(in oklab,var(--color-surface) 88%, black)}
+    .toolbar,.toolbar-left,.toolbar-right{display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap}
+    .search-shell{display:flex;align-items:center;gap:var(--space-3);min-width:min(420px,100%);padding:.85rem 1rem;border-radius:var(--radius-lg);border:1px solid color-mix(in oklab,var(--color-text) 12%, transparent);background:color-mix(in oklab,var(--color-surface) 86%, black)}
+    .search-shell input{width:100%;border:none;background:none;outline:none;color:var(--color-text)}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:var(--space-6)}
+    .hero-panel{display:grid;gap:var(--space-5)}
+    .meta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3)}
+    .metric{padding:var(--space-4);border-radius:var(--radius-lg);background:color-mix(in oklab,var(--color-surface-offset) 62%, transparent);border:1px solid color-mix(in oklab,var(--color-text) 10%, transparent)}
+    .metric label{display:block;font-size:var(--text-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-faint);margin-bottom:.35rem}
+    .metric strong{display:block;font-size:1.7rem;line-height:1.05}
+    .metric span{display:block;margin-top:.35rem;font-size:var(--text-sm);color:var(--color-text-muted)}
+    .summary-list{display:grid;gap:var(--space-3)}
+    .summary-item{display:grid;grid-template-columns:auto 1fr auto;gap:var(--space-3);align-items:start;padding:var(--space-3) 0;border-bottom:1px solid color-mix(in oklab,var(--color-text) 8%, transparent)}
+    .summary-item:last-child{border-bottom:none;padding-bottom:0}
+    .summary-rank{width:2rem;height:2rem;border-radius:var(--radius-full);display:grid;place-items:center;background:color-mix(in oklab,var(--color-primary) 15%, transparent);color:var(--color-primary);font-weight:700;font-size:var(--text-sm)}
+    .summary-copy strong{display:block;font-size:var(--text-sm);margin-bottom:.2rem}
+    .summary-copy span{display:block;font-size:var(--text-xs);color:var(--color-text-muted)}
+    .score-badge{font-size:var(--text-sm);font-weight:700;padding:.32rem .6rem;border-radius:var(--radius-full);background:color-mix(in oklab,var(--color-blue) 12%, transparent);color:var(--color-blue)}
+    .grid-2{display:grid;grid-template-columns:1.15fr .85fr;gap:var(--space-6)}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4)}
+    .chart-card{padding:var(--space-5);height:360px}
+    .table-wrap{overflow:auto;border-radius:var(--radius-lg);border:1px solid color-mix(in oklab,var(--color-text) 10%, transparent)}
+    th,td{padding:.9rem 1rem;border-bottom:1px solid color-mix(in oklab,var(--color-text) 8%, transparent);text-align:left;vertical-align:top;font-size:var(--text-sm)}
+    th{position:sticky;top:0;background:color-mix(in oklab,var(--color-surface) 94%, black);font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);z-index:1}
+    tbody tr:hover{background:color-mix(in oklab,var(--color-primary) 5%, var(--color-surface))}
+    .stack{display:grid;gap:var(--space-4)}
+    .note{padding:var(--space-4);border-radius:var(--radius-lg);background:color-mix(in oklab,var(--color-surface-offset) 66%, transparent);border:1px solid color-mix(in oklab,var(--color-text) 10%, transparent)}
+    .note strong{display:block;font-size:var(--text-sm);margin-bottom:.35rem}
+    .note p,.note li{font-size:var(--text-sm);color:var(--color-text-muted)}
+    .note ul,.bullet-list{display:grid;gap:.6rem;list-style:none}
+    .opportunity{padding:var(--space-6);display:grid;gap:var(--space-4)}
+    .opportunity-head{display:flex;align-items:start;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap}
+    .opportunity-head h3{font-size:var(--text-lg);line-height:1.1}
+    .tag-row{display:flex;gap:var(--space-2);flex-wrap:wrap}
+    .split{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4)}
+    .footer{padding:var(--space-6);font-size:var(--text-xs);color:var(--color-text-faint);display:grid;gap:var(--space-2)}
+    .codebox{padding:var(--space-4);border-radius:var(--radius-lg);background:color-mix(in oklab,var(--color-surface) 88%, black);border:1px dashed color-mix(in oklab,var(--color-text) 12%, transparent);font-size:var(--text-sm);color:var(--color-text-muted)}
+    .mobile-toggle{display:none}
+    .hide-mobile{display:inline-flex}
+    @media (max-width:1200px){.hero,.grid-2,.split{grid-template-columns:1fr}.meta-grid{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:1fr}}
+    @media (max-width:920px){html,body{height:auto;overflow:auto}.report-shell{grid-template-columns:1fr;grid-template-rows:auto auto 1fr}.sidebar{grid-row:auto;position:sticky;top:0;z-index:35;flex-direction:row;align-items:center;overflow:auto;padding:var(--space-4)}.sidebar .nav-group,.sidebar .stack{display:none}.mobile-toggle{display:inline-flex}.topbar{grid-column:1;padding:var(--space-4)}.content{grid-column:1;overflow:visible;padding:var(--space-4)}}
+    @media (max-width:640px){.meta-grid{grid-template-columns:1fr}.topbar{flex-direction:column;align-items:flex-start}.toolbar,.toolbar-left,.toolbar-right,.search-shell{width:100%}.search-shell{min-width:0}.hide-mobile{display:none}.card-pad,.opportunity,.chart-card,.footer{padding:var(--space-4)}.page-title{max-width:14ch}}
+    @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <a class="sr-only" href="#main-content">Skip to content</a>
+  <div class="report-shell">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <div class="brand">
+        <div class="brand-text">
+          <strong>GARCH QUANT</strong>
+          <span>Institutional Research Web Report</span>
+        </div>
+      </div>
+
+      <div class="nav-group" id="navList">
+        <div class="nav-title">Sections</div>
+      </div>
+
+      <div class="stack">
+        <div class="card card-pad">
+          <div class="eyebrow">使用方式</div>
+          <ul class="bullet-list" role="list">
+            <li>1. 只改顶部 <span class="mono">REPORT_DATA</span>。</li>
+            <li>2. 表格、摘要、图表自动重绘。</li>
+            <li>3. 可直接嵌入现有静态站点。</li>
+            <li>4. 无需构建工具，单文件可复用。</li>
+          </ul>
+        </div>
+        <div class="card card-pad">
+          <div class="eyebrow">模板适用</div>
+          <div class="tag-row">
+            <span class="pill primary">深度研报</span>
+            <span class="pill">行业看板</span>
+            <span class="pill">周报/月报</span>
+            <span class="pill">单主题专题</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <header class="topbar">
+      <div class="toolbar-left toolbar">
+        <button class="btn btn-secondary mobile-toggle" data-mobile-nav>菜单</button>
+        <label class="search-shell" aria-label="Search report content">
+          <span class="mono" aria-hidden="true">/</span>
+          <input id="searchInput" type="search" placeholder="搜索主题、标的、市场、催化剂、风险…" />
+        </label>
+      </div>
+<div class="toolbar-right toolbar">
+        <span class="pill primary" id="metaDate">更新日期</span>
+        <span class="pill" id="metaWindow">时间窗</span>
+        <button class="btn btn-secondary hide-mobile" data-theme-toggle aria-label="Switch theme">主题</button>
+        <a class="btn btn-primary" href="#trader-summary">交易员结论</a>
+      </div>
+    </header>
+
+    <main class="content" id="main-content"></main>
+  </div>
+
+  <script>
+    const REPORT_DATA = {
+      meta: {
+        brand: 'GARCH QUANT',
+        title: 'AI 产业投资转折点：从训练算力到电力、内存、互连与安全',
+        subtitle: 'AI 产业投资转折点研究 — 电力/液冷、HBM/DRAM/SSD、光互连、AI 安全四大主线',
+        date: '2026-05-23',
+        window: '1–24M',
+        region: '美股优先，覆盖 A/H/台/日/韩/欧',
+        authorNote: '本报告为 AI 产业投资转折点专题研究，适用于买方研报、专题报告与投委会展示页面。'
+      },
+      overview: {
+        summary: '当前阶段最值得优先交易的不是"所有 AI 相关资产"，而是瓶颈真正迁移到的电力/液冷、HBM/DRAM/SSD、高速光互连，以及随着 Agent 扩张而被动抬升预算的 AI 安全。模板按"一页结论 → 雷达表 → 深挖 → 受损资产 → 配对交易 → 观察名单 → 数据缺口 → 交易员版本"组织，方便直接替换为其他主题。',
+        keyPoints: [
+          '最值得关注的 3 个转折点：电力与液冷、HBM/DRAM/SSD、高速光互连。',
+          '当前最不值得追的热门叙事：AI PC/AI 手机、全链条人形机器人、小盘纯 AI 应用 SaaS。',
+          '最大风险：云厂 CAPEX 下修、内存 ASP 提前见顶、并网与液冷约束缓解。',
+          '需要继续等数据确认：AI 医药、机器人、LLM Observability / Agent 编排。'
+        ],
+        kpis: [
+          { label: '最高分主线', value: '88', note: '电力与液冷' },
+          { label: '最清晰利润池', value: 'HBM', note: '寡头供给 + ASP + 毛利率扩张' },
+          { label: '最可能低估', value: '二阶电气链', note: '欧股 / 台股 / A 股扩散线' },
+          { label: '最需谨慎', value: 'AI 终端', note: '叙事强于硬数据' }
+        ]
+      },
+      ranking: [
+        { rank: 1, theme: 'AI 数据中心电力与液冷', conclusion: '高密度机柜推动配电、UPS、液冷成为刚需。', topAsset: 'VRT / ETN / SU / ENR / 2308.TW', direction: '做多', pricing: '部分未定价', catalyst: '订单、backlog、AI CAPEX 指引', score: 88 },
+        { rank: 2, theme: 'HBM / DRAM / NAND / 企业 SSD', conclusion: '内存从周期品变成 AI 结构性瓶颈。', topAsset: 'MU / 000660.KS / 005930.KS', direction: '做多 + 配对', pricing: '仍有预期差', catalyst: '合约价、HBM4 指引、毛利率', score: 86 },
+        { rank: 3, theme: '800G → 1.6T 光互连', conclusion: '带宽与功耗每 bit 成为新约束。', topAsset: 'COHR / LITE / ANET', direction: '做多', pricing: '未充分拥挤', catalyst: '渗透率、1.6T 量产、交换机更新', score: 82 },
+        { rank: 4, theme: 'AI 安全 / Agent 安全', conclusion: '企业 AI 工作负载扩张后，安全预算被动增加。', topAsset: 'CRWD / ZS / PANW / NET', direction: '做多篮子', pricing: '中度未定价', catalyst: '收入拆分、攻击事件、预算上调', score: 78 },
+        { rank: 5, theme: '向量数据库 / LLM Observability', conclusion: '模型变便宜后，检索与监控变成运营层刚需。', topAsset: 'MDB / SNOW / DDOG / ESTC', direction: '观察 / 做多', pricing: '早期预期差', catalyst: 'AI ARR 披露、客户案例', score: 74 }
+      ],
+      radar: [
+        { theme: '电力与液冷', bottleneck: '机柜功率密度、液冷、UPS、并网', payer: '云厂 / Big Tech / 主权 AI 数据中心', money: '新增 CAPEX 与电力预算', direct: 'VRT / ETN / SU / ENR / Delta', indirect: '变压器 / 配电 / 电缆 / EPC', losers: '传统空冷 DC / 老机房', evidence: '订单、backlog、并网约束', mispricing: '二阶链条仍折价', assets: 'VRT / ETN / SU / ENR / 2308.TW', score: 88 },
+        { theme: 'HBM / DRAM / SSD', bottleneck: '高带宽内存与企业级存储短缺', payer: '云厂 / 企业 DC / AI 平台', money: '服务器与存储 CAPEX', direct: 'MU / SK hynix / Samsung', indirect: '封测 / 设备 / 材料', losers: 'PC / OEM / 安卓链', evidence: '合约价、毛利率、收入', mispricing: '仍被当周期股', assets: 'MU / 000660 / 005930', score: 86 },
+        { theme: '高速光互连', bottleneck: '800G / 1.6T 带宽与能耗', payer: '云厂 / AI 数据中心', money: '网络 CAPEX', direct: 'COHR / LITE / ANET / Accelink', indirect: '光芯片 / 封装 / CPO', losers: '低速光与传统电信链', evidence: '800G 替代、1.6T roadmap', mispricing: '相对不拥挤', assets: 'COHR / LITE / ANET / 002281', score: 82 },
+        { theme: 'AI 安全', bottleneck: '身份、权限、模型与数据边界治理', payer: '大企业 / 金融 / 政府 / 云平台', money: '安全预算重分配', direct: 'CRWD / ZS / PANW / NET', indirect: '合规 / 咨询 / 情报', losers: '盒式安全', evidence: 'AI 活动增长、安全预算上调', mispricing: '仍按旧 SaaS 估值框架看', assets: 'CRWD / ZS / PANW / NET', score: 78 },
+        { theme: '向量 DB / Observability', bottleneck: '检索、存储、监控、可观测性', payer: '自建 Agent / LLM 的企业', money: '数据平台与运维预算', direct: 'MDB / SNOW / DDOG / ESTC', indirect: '云存储 / 编排工具', losers: '旧数据库 / 旧 APM', evidence: 'AI 功能上线、客户案例增加', mispricing: '收入拆分尚不清晰', assets: 'MDB / SNOW / DDOG / ESTC', score: 74 }
+      ],
+      deepDives: [
+        {
+          title: '做多 AI 数据中心电力与液冷',
+          stance: '做多',
+          ticker: 'VRT / ETN / SU / ENR / 2308.TW',
+          market: 'US / EU / TW',
+          coreLogic: '高密度 AI 机柜推动配电、UPS、液冷与并网能力成为新增刚需。预算从 IT 采购外溢到基础设施改造。利润集中在具备整包交付、客户认证与产能稀缺的环节。',
+          chain: '卖的是高压配电、UPS、CDU、液冷系统、机房集成与能源管理；客户是云厂、共址运营商和主权 AI 园区。',
+          reason: 'AI 下一阶段不是"更多 GPU"单独扩张，而是整个机柜与园区功率密度升级，因此电力与散热从配套变成核心。',
+          evidence: ['订单、backlog、交期、并网约束、液冷渗透率。','多家公司在 AI 数据中心订单与 backlog 上给出管理层定性 / 定量更新。'],
+          mispricing: ['一阶龙头已涨，但海外二阶链条仍常被当泛工业股处理。','部分市场还没给 AI 纯正基础设施溢价。'],
+          catalyst: ['1M：云厂/OEM 财报更新 CAPEX。','3M：液冷订单与项目交付。','6M：电力设备毛利率与产能利用率。','12M：并网扩容与新园区投运。'],
+          upside: '情景分析：若 AI 数据中心 CAPEX 继续上修，二阶配电与液冷有望迎来估值与盈利双击。',
+          downside: '若 CAPEX 下修或电力约束快速缓解，估值先压缩。',
+          invalidation: '若管理层不再强调液冷、并网和高功率密度是瓶颈，逻辑需重估。',
+          sizing: '确认仓为主，回调加仓，偏右侧。',
+          hedge: '空传统空冷 DC REIT 或用纳指 / 科技 ETF 保护性看跌对冲。'
+        },
+        {
+          title: '做多 HBM / DRAM / 企业 SSD，配对做空终端 OEM',
+          stance: '多空配对',
+          ticker: 'MU / 000660.KS / 005930.KS',
+          market: 'US / KR',
+          coreLogic: 'AI 把内存和企业存储从可选配置变成结构性瓶颈。供给高度寡头，ASP 与 mix 改善可直接转化为利润率。相反，终端 OEM 被高 BOM 成本挤压。',
+          chain: '卖的是 HBM、服务器 DRAM、NAND 与企业 SSD；客户是云厂、服务器厂与企业级数据中心。',
+          reason: '推理与长上下文提升每个集群的内存和存储占用，云端先扩张，终端让路。',
+          evidence: ['合约价上行、HBM4 路线、内存厂收入与毛利率改善。','终端 PC / 手机需求与 ASP 分化。'],
+          mispricing: ['市场仍常把记忆体放进传统周期框架。','终端 OEM 被成本挤出的逻辑也未完全 price in。'],
+          catalyst: ['1M：财报指引。','3M：合约价更新。','6M：终端出货。','12M：HBM4e 量产与 2027 产能分配。'],
+          upside: '若供给约束持续，盈利上修和估值框架都可能强化。',
+          downside: '若 ASP 提前见顶回落，主线会切换。',
+          invalidation: '连续两季 ASP 回落且 CAPEX / 指引同步降温。',
+          sizing: '试错仓到确认仓过渡，偏右侧。',
+          hedge: '空 PC / 安卓 / 中低端 OEM 篮子。'
+        },
+        {
+          title: '做多 800G / 1.6T 光互连',
+          stance: '做多',
+          ticker: 'COHR / LITE / ANET / 002281.SZ / 300308.SZ',
+          market: 'US / CN',
+          coreLogic: '电力与内存之后，带宽和功耗每 bit 成为新约束。800G 到 1.6T 的升级会提升光模块、交换机与相关器件的价值量。相比 GPU 和内存，这条链条仍不算最拥挤。',
+          chain: '卖的是光模块、交换机、网络互连器件；客户是云厂和 AI 集群运营方。',
+          reason: '大型 AI 集群需要更高带宽与更优能效互连，网络成为扩张上限的一部分。',
+          evidence: ['800G 渗透率提升、1.6T 规划、交换机更新周期。'],
+          mispricing: ['相对 GPU / 电力 / 内存，光互连仍偏次主线。'],
+          catalyst: ['1M：行业数据更新。','3M：1.6T 产品进展。','6M：云厂部署。','12M：CPO/LPO 实配。'],
+          upside: '若网络升级持续，存在弹性放大。',
+          downside: '技术路线切换过快或 ASP 下滑。',
+          invalidation: '1.6T / CPO 长时间落不了地。',
+          sizing: '卫星仓，进攻型。',
+          hedge: '空传统低速光通信链。'
+        },
+        {
+          title: '做多 AI 安全 / Agent 安全平台',
+          stance: '做多篮子',
+          ticker: 'CRWD / ZS / PANW / NET',
+          market: 'US',
+          coreLogic: '企业不是只要"能用 AI"，而是要确保谁能调用、哪些数据能访问、输出是否可信。Agent 增多后，身份、权限与数据边界管理变成预算优先级。平台化安全厂商最容易吸收这部分新增预算。',
+          chain: '卖的是云原生安全平台、身份治理、SSE/SASE、模型与数据防护。客户是大企业、金融、政府与云平台。',
+          reason: 'AI 工作负载扩大后，攻击面变大，安全预算被迫上行。',
+          evidence: ['企业 AI 活动增多、预算重配、厂商 AI 安全产品线扩展。'],
+          mispricing: ['当前估值仍常被放在传统 SaaS 框架，而非 AI 基础设施防线。'],
+          catalyst: ['1M：安全厂财报。','3M：行业预算更新。','6M：重大攻击事件与监管。','12M：AI 安全收入拆分更清晰。'],
+          upside: '若 AI / Agent 安全形成独立预算线，平台厂商将受益。',
+          downside: '收入拆分不清晰，市场难给高估值。',
+          invalidation: '连续多季看不到 AI 安全相关收入兑现。',
+          sizing: '中等仓位，偏右侧。',
+          hedge: '空传统盒式安全或用软件 ETF 对冲。'
+        }
+      ],
+      shorts: [
+        { asset: '传统 DC REIT', reason: '高密度配电与液冷能力不足', path: '深度改造或新建园区', timing: '12–24M 持续反映', feasibility: '高', risk: '利率与转型成功扰动' },
+        { asset: '中低端 PC / OEM / 安卓链', reason: '内存涨价挤压 BOM 与利润率', path: '高端化 / 提价 / 缩量', timing: '3–12M', feasibility: '高', risk: '成功转嫁成本' },
+        { asset: '传统低速光通信', reason: '预算向 AI 高速互连迁移', path: '升级到 800G+', timing: '6–18M', feasibility: '中', risk: '技术转型成功' },
+        { asset: '小盘纯 AI 应用 SaaS', reason: '同质化、现金流弱、易被平台集成', path: '垂直化或被并购', timing: '6–24M', feasibility: '中低', risk: '被收购或短期 squeeze' }
+      ],
+      pairs: [
+        { structure: '电力 / 液冷 vs 传统 DC', long: 'VRT / ETN / SU / ENR / 2308.TW', short: '传统空冷 DC REIT', logic: '新负载向高密度配电与液冷迁移', catalyst: '订单与 AI CAPEX 更新', invalidation: 'REIT 成功升级吸单' },
+        { structure: '内存三巨头 vs 终端 OEM', long: 'MU / 000660 / 005930', short: 'PC / 安卓 / OEM', logic: '上游寡头赚取 ASP，终端承担成本', catalyst: '合约价与终端出货', invalidation: 'ASP 见顶回落' },
+        { structure: '高速光互连 vs 低速光', long: 'COHR / LITE / ANET', short: '传统低速光通信', logic: 'AI 网络升级取代旧代际产品', catalyst: '1.6T 进展与渗透率', invalidation: '部署推迟' },
+        { structure: 'AI 安全平台 vs 盒子安全', long: 'CRWD / ZS / PANW / NET', short: '传统盒式安全', logic: '安全预算向云原生和模型治理迁移', catalyst: 'AI 安全收入披露', invalidation: '传统厂转型成功' }
+      ],
+      watchlist: [
+        { theme: 'AI 医药与自动化实验室', gap: '缺大药企长期预算与临床验证', trigger: '大额合作 / 临床里程碑', data: '研发 CAPEX、自动化设备订单', assets: 'RXRX / SDGR / Tecan' },
+        { theme: '具身智能 / 人形机器人', gap: '缺外部订单与规模化 ASP', trigger: '工业 / 物流真实量产项目', data: '部件订单、客户数、量产时间', assets: 'TSLA + 日中供应链' },
+        { theme: 'AI Observability / Agent 编排', gap: '缺 AI 收入拆分', trigger: '财报单列 AI ARR', data: '客户数、留存、使用量', assets: 'DDOG / MDB / ESTC' },
+        { theme: '端侧 AI 设备', gap: '缺真实换机潮', trigger: '出货与毛利率同步改善', data: 'ASP、出货、渗透率', assets: 'AAPL / QCOM / MediaTek' }
+      ],
+      gaps: [
+        '光模块 / CPO 公开免费摘要对细分出货与 ASP 的覆盖仍有限。',
+        '向量 DB 与 AI Observability 的收入拆分普遍不够细。',
+        'AI 安全的总盘子相对清晰，但到单公司财务映射仍需后续财报确认。',
+        '机器人与 AI 医药更多是中长期情景分析，短期交易证据不足。'
+      ],
+      traderSummary: [
+        '现在最值得研究的方向：电力 / 液冷，HBM / DRAM / SSD，高速光互连，AI 安全。',
+        '现在最可能被低估的标的：二阶电气设备与液冷链、海外传导标的、具备向量与 LLM 观测能力的平台。',
+        '现在最拥挤、最需要小心的标的：纯一阶 AI 龙头与只靠终端故事的消费电子概念。',
+        '未来 30 天需要盯的催化剂：内存厂财报、云厂 CAPEX、电力设备订单、行业数据更新。',
+        '未来 90 天需要盯的数据：DRAM/NAND 合约价、液冷交付周期、1.6T 渗透率、AI 安全收入拆分。',
+        '当前最优交易结构：多电力 / 液冷 + 多内存 + 多高速光 + 多 AI 安全，配对空终端 OEM、传统 DC、低速光和盒子安全。',
+        '承认判断错误的条件：CAPEX 下修、内存 ASP 连续回落、液冷与并网瓶颈缓解、1.6T 落地延后、AI 安全收入未兑现。'
+      ],
+      sources: [
+        '此模板默认承载正文分析、管理层表态、数据证据与交易表达。',
+        '如需正式上线，建议把引用、图表数据与下载导出接口接入后端或静态 JSON。',
+        '建议后续补充：股价表现、估值区间、盈利预测修正、期权 IV、拥挤度。'
+      ]
+    };
+
+    const SECTION_DEFS = [
+      { id: 'overview', label: '一页结论' },
+      { id: 'radar', label: '雷达表' },
+      { id: 'deep-dives', label: 'Top 机会' },
+      { id: 'shorts', label: '受损资产' },
+      { id: 'pairs', label: '配对交易' },
+      { id: 'watchlist', label: '观察名单' },
+      { id: 'data-gaps', label: '数据缺口' },
+      { id: 'trader-summary', label: '交易员版本' },
+      { id: 'template-notes', label: '模板说明' }
+    ];
+
+    const $ = (sel, root = document) => root.querySelector(sel);
+    const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+    const content = $('#main-content');
+    const navList = $('#navList');
+
+    function escapeHtml(text='') {
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function renderNav() {
+      SECTION_DEFS.forEach((sec, idx) => {
+        const a = document.createElement('a');
+        a.className = 'nav-link' + (idx === 0 ? ' active' : '');
+        a.href = '#' + sec.id;
+        a.innerHTML = '<span>' + escapeHtml(sec.label) + '</span><span class="mono">' + String(idx+1).padStart(2,'0') + '</span>';
+        navList.appendChild(a);
+      });
+    }
+
+    function renderOverview() {
+      const { meta, overview, ranking } = REPORT_DATA;
+      const top3 = ranking.slice(0,3).map(item => '<div class="summary-item"><div class="summary-rank">' + item.rank + '</div><div class="summary-copy"><strong>' + escapeHtml(item.theme) + '</strong><span>' + escapeHtml(item.conclusion) + '</span></div><div class="score-badge mono">' + item.score + '</div></div>').join('');
+      const kpis = overview.kpis.map(k => '<div class="metric"><label>' + escapeHtml(k.label) + '</label><strong class="mono">' + escapeHtml(k.value) + '</strong><span>' + escapeHtml(k.note) + '</span></div>').join('');
+      const points = overview.keyPoints.map(p => '<li>' + escapeHtml(p) + '</li>').join('');
+      return '<section class="section hero" id="overview"><article class="card card-pad hero-panel"><div><div class="eyebrow">' + escapeHtml(meta.brand) + ' | ' + escapeHtml(meta.subtitle) + '</div><h1 class="page-title">' + escapeHtml(meta.title) + '</h1></div><p class="lead">' + escapeHtml(overview.summary) + '</p><div class="tag-row"><span class="pill primary" id="overviewDate">更新日期 ' + escapeHtml(meta.date) + '</span><span class="pill">时间窗 ' + escapeHtml(meta.window) + '</span><span class="pill">范围 ' + escapeHtml(meta.region) + '</span></div><div class="meta-grid">' + kpis + '</div><div class="note"><strong>本次结论提要</strong><ul class="bullet-list">' + points + '</ul></div></article><aside class="card card-pad stack"><div class="section-head"><div><h2>Top 3 看板</h2><p>适合放在站点首屏右侧，快速告诉读者"先看什么、别追什么、风险在哪"。</p></div><span class="pill mono">Score</span></div><div class="summary-list">' + top3 + '</div></aside></section>';
+    }
+
+    function renderCharts() {
+      return '<section class="section grid-2" id="charts"><article class="card chart-card"><div class="section-head"><div><h2>转折点综合评分</h2><p>用雷达图把当前主线放在同一平面上，便于比较强度与完整性。</p></div><span class="pill mono">Radar</span></div><canvas id="scoreRadar" aria-label="Radar chart"></canvas></article><article class="card chart-card"><div class="section-head"><div><h2>交易优先级排序</h2><p>用横向条形图展示最应优先研究与交易的方向。</p></div><span class="pill mono">Rank</span></div><canvas id="rankBar" aria-label="Bar chart"></canvas></article></section>';
+    }
+
+    function renderRankingTable() {
+      const rows = REPORT_DATA.ranking.map(r => '<tr><td class="mono">' + r.rank + '</td><td><strong>' + escapeHtml(r.theme) + '</strong></td><td>' + escapeHtml(r.conclusion) + '</td><td class="mono">' + escapeHtml(r.topAsset) + '</td><td>' + escapeHtml(r.direction) + '</td><td>' + escapeHtml(r.pricing) + '</td><td>' + escapeHtml(r.catalyst) + '</td><td class="mono">' + r.score + '</td></tr>').join('');
+      return '<section class="section" id="ranking-table"><div class="section-head"><div><h2>一页结论总表</h2><p>这部分适合保留为标准模板组件，任何专题都可以换数据复用。</p></div></div><div class="table-wrap card"><table><thead><tr><th>排名</th><th>转折点主题</th><th>核心结论</th><th>最高置信度标的</th><th>交易方向</th><th>是否已被市场定价</th><th>未来催化剂</th><th>总分</th></tr></thead><tbody>' + rows + '</tbody></table></div></section>';
+    }
+
+    function renderRadarTable() {
+      const rows = REPORT_DATA.radar.map(r => '<tr><td><strong>' + escapeHtml(r.theme) + '</strong></td><td>' + escapeHtml(r.bottleneck) + '</td><td>' + escapeHtml(r.payer) + '</td><td>' + escapeHtml(r.money) + '</td><td>' + escapeHtml(r.direct) + '</td><td>' + escapeHtml(r.indirect) + '</td><td>' + escapeHtml(r.losers) + '</td><td>' + escapeHtml(r.evidence) + '</td><td>' + escapeHtml(r.mispricing) + '</td><td class="mono">' + escapeHtml(r.assets) + '</td><td class="mono">' + r.score + '</td></tr>').join('');
+      return '<section class="section" id="radar"><div class="section-head"><div><h2>AI 转折点雷达表</h2><p>采用固定列结构，后续能直接接 JSON / CSV 输出，适合作为统一模板。</p></div></div><div class="table-wrap card"><table><thead><tr><th>主题</th><th>新能力或新瓶颈</th><th>谁付钱</th><th>钱从哪里来</th><th>直接受益方</th><th>间接受益方</th><th>受损方</th><th>最新证据</th><th>未定价证据</th><th>可交易资产</th><th>分数</th></tr></thead><tbody>' + rows + '</tbody></table></div></section>';
+    }
+
+    function renderDeepDives() {
+      const cards = REPORT_DATA.deepDives.map((d, idx) => {
+        const evidence = d.evidence.map(x => '<li>' + escapeHtml(x) + '</li>').join('');
+        const mispricing = d.mispricing.map(x => '<li>' + escapeHtml(x) + '</li>').join('');
+        const catalyst = d.catalyst.map(x => '<li>' + escapeHtml(x) + '</li>').join('');
+        return '<article class="card opportunity"><div class="opportunity-head"><div><div class="eyebrow">Opportunity ' + String(idx+1).padStart(2,'0') + '</div><h3>' + escapeHtml(d.title) + '</h3></div><div class="tag-row"><span class="pill primary">' + escapeHtml(d.stance) + '</span><span class="pill">' + escapeHtml(d.market) + '</span><span class="pill mono">' + escapeHtml(d.ticker) + '</span></div></div><div class="split"><div class="note"><strong>核心逻辑</strong><p>' + escapeHtml(d.coreLogic) + '</p></div><div class="note"><strong>产业链位置</strong><p>' + escapeHtml(d.chain) + '</p></div></div><div class="split"><div class="note"><strong>需求扩大原因</strong><p>' + escapeHtml(d.reason) + '</p></div><div class="note"><strong>市场未定价证据</strong><ul>' + mispricing + '</ul></div></div><div class="split"><div class="note"><strong>数据证据</strong><ul>' + evidence + '</ul></div><div class="note"><strong>催化剂</strong><ul>' + catalyst + '</ul></div></div><div class="split"><div class="note"><strong>上行空间</strong><p>' + escapeHtml(d.upside) + '</p></div><div class="note"><strong>下行风险</strong><p>' + escapeHtml(d.downside) + '</p></div></div><div class="split"><div class="note"><strong>失效条件</strong><p>' + escapeHtml(d.invalidation) + '</p></div><div class="note"><strong>仓位建议 / 对冲方式</strong><p>' + escapeHtml(d.sizing) + ' ' + escapeHtml(d.hedge) + '</p></div></div></article>';
+      }).join('');
+      return '<section class="section" id="deep-dives"><div class="section-head"><div><h2>Top 机会深挖</h2><p>这里是正式研报主体。换主题时，保持结构不变，只替换数据与段落内容即可。</p></div></div>' + cards + '</section>';
+    }
+
+    function renderSimpleTableSection(id, title, desc, columns, rows) {
+      const head = columns.map(c => '<th>' + escapeHtml(c) + '</th>').join('');
+      const body = rows.map(row => '<tr>' + row.map(cell => '<td>' + cell + '</td>').join('') + '</tr>').join('');
+      return '<section class="section" id="' + id + '"><div class="section-head"><div><h2>' + escapeHtml(title) + '</h2><p>' + escapeHtml(desc) + '</p></div></div><div class="table-wrap card"><table><thead><tr>' + head + '</tr></thead><tbody>' + body + '</tbody></table></div></section>';
+    }
+
+    function renderLists() {
+      const shortRows = REPORT_DATA.shorts.map(r => [r.asset, r.reason, r.path, r.timing, r.feasibility, r.risk].map(escapeHtml));
+      const pairRows = REPORT_DATA.pairs.map(r => [r.structure, r.long, r.short, r.logic, r.catalyst, r.invalidation].map(escapeHtml));
+      const watchRows = REPORT_DATA.watchlist.map(r => [r.theme, r.gap, r.trigger, r.data, r.assets].map(escapeHtml));
+      const gaps = REPORT_DATA.gaps.map(x => '<li>' + escapeHtml(x) + '</li>').join('');
+      const trader = REPORT_DATA.traderSummary.map(x => '<li>' + escapeHtml(x) + '</li>').join('');
+      const sources = REPORT_DATA.sources.map(x => '<li>' + escapeHtml(x) + '</li>').join('');
+      return renderSimpleTableSection('shorts','做空或受损资产','用于明确哪些资产位于利润池外侧，适合作为空头腿或规避对象。',['受损资产','受损原因','替代路径','何时开始反映','做空可行性','风险'],shortRows) +
+        renderSimpleTableSection('pairs','配对交易和跨市场传导','把一阶利润池与二阶传导链拆开，形成更干净的交易表达。',['交易结构','做多','做空','核心逻辑','催化剂','失效条件'],pairRows) +
+        renderSimpleTableSection('watchlist','观察名单','现在不一定能买，但可能演变为未来高胜率机会。',['主题','当前缺什么证据','触发买入的信号','需要跟踪的数据','可能标的'],watchRows) +
+        '<section class="section" id="data-gaps"><div class="section-head"><div><h2>数据缺口</h2><p>正式网页版需要把推测与已验证信息严格区分开，这里是模板中的固定位置。</p></div></div><article class="card card-pad"><ul class="bullet-list">' + gaps + '</ul></article></section>' +
+        '<section class="section" id="trader-summary"><div class="section-head"><div><h2>交易员版本结论</h2><p>这部分可被直接复制到晨会稿、盘前要点或风控更新里。</p></div></div><article class="card card-pad"><ol class="stack" style="padding-left:1.25rem;">' + trader + '</ol></article></section>' +
+        '<section class="section" id="template-notes"><div class="section-head"><div><h2>模板说明</h2><p>保留这部分，便于你或团队以后复用并快速改成别的行业主题。</p></div></div><div class="grid-2"><article class="card card-pad stack"><div class="note"><strong>如何复用</strong><p>只改 <span class="mono">REPORT_DATA</span> 即可复用；导航、图表、摘要、表格自动重绘。</p></div><div class="note"><strong>适合接入的数据</strong><p>股价表现、估值、盈利预测修正、期权 IV、拥挤度、估值分位数与引用脚注。</p></div><div class="note"><strong>适合接入的工作流</strong><p>Python / YAML 生成 JSON，再由静态站点模板直接读取并渲染。</p></div></article><article class="card card-pad stack"><div class="codebox mono">核心复用点：<br>1. REPORT_DATA.meta<br>2. REPORT_DATA.ranking / radar<br>3. REPORT_DATA.deepDives<br>4. REPORT_DATA.shorts / pairs / watchlist / gaps</div><div class="note"><strong>上线建议</strong><ul>' + sources + '</ul></div></article></div></section>';
+    }
+
+    function renderFooter() {
+      return '<footer class="footer"><div>' + escapeHtml(REPORT_DATA.meta.brand) + ' · Reusable single-file institutional web report template.</div><div>Static HTML · responsive layout · dark/light mode · dashboard + long-form research in one page.</div></footer>';
+    }
+
+    function buildPage() {
+      $('#metaDate').textContent = '更新日期 ' + REPORT_DATA.meta.date;
+      $('#metaWindow').textContent = '时间窗 ' + REPORT_DATA.meta.window;
+      content.innerHTML = [renderOverview(), renderCharts(), renderRankingTable(), renderRadarTable(), renderDeepDives(), renderLists(), renderFooter()].join('');
+    }
+
+    function makeCharts() {
+      if (typeof Chart === 'undefined') return;
+      const root = document.documentElement;
+      const axis = getComputedStyle(root).getPropertyValue('--color-text-muted').trim();
+      const grid = getComputedStyle(root).getPropertyValue('--color-border').trim();
+      const primary = getComputedStyle(root).getPropertyValue('--color-primary').trim();
+      Chart.defaults.font.family = 'Satoshi, ui-sans-serif, system-ui, sans-serif';
+      Chart.defaults.color = axis;
+      if (window.__gqRadar) window.__gqRadar.destroy();
+      if (window.__gqBar) window.__gqBar.destroy();
+      window.__gqRadar = new Chart($('#scoreRadar'), {
+        type: 'radar',
+        data: {
+          labels: REPORT_DATA.ranking.map(x => x.theme.replace(/\s*\/\s*/g,'/')),
+          datasets: [{label: '综合评分', data: REPORT_DATA.ranking.map(x => x.score), borderColor: primary, backgroundColor: primary + '33', pointBackgroundColor: primary, borderWidth: 2, pointRadius: 3, fill: true}]
+        },
+        options: {responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { r: { suggestedMin: 50, suggestedMax: 100, angleLines: { color: grid }, grid: { color: grid }, pointLabels: { color: axis, font: { size: 12, weight: '600' } }, ticks: { backdropColor: 'transparent', color: axis, stepSize: 10 } } }}
+      });
+      window.__gqBar = new Chart($('#rankBar'), {
+        type: 'bar',
+        data: {
+          labels: REPORT_DATA.ranking.map(x => x.theme),
+          datasets: [{label: '总分', data: REPORT_DATA.ranking.map(x => x.score), borderRadius: 10, backgroundColor: ['rgba(88,162,173,.9)','rgba(116,187,147,.9)','rgba(118,169,234,.9)','rgba(216,164,90,.9)','rgba(186,157,241,.9)']}]
+        },
+        options: {indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { min: 50, max: 100, grid: { color: grid }, ticks: { color: axis } }, y: { grid: { display: false }, ticks: { color: axis, font: { weight: '600' } } } }}
+      });
+    }
+
+    function initTheme() {
+      const root = document.documentElement;
+      let theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      root.setAttribute('data-theme', theme);
+      const toggle = $('[data-theme-toggle]');
+      const sync = () => { toggle.textContent = theme === 'dark' ? '浅色' : '深色'; toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode'); };
+      sync();
+      toggle.addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', theme); sync(); makeCharts(); });
+    }
+
+    function initSearch() {
+      const input = $('#searchInput');
+      const blocks = $$('section, article.card', content);
+      input.addEventListener('input', e => {
+        const q = e.target.value.trim().toLowerCase();
+        blocks.forEach(el => {
+          if (!q) { el.style.opacity = ''; el.style.outline = ''; return; }
+          const match = el.innerText.toLowerCase().includes(q);
+          el.style.opacity = match ? '1' : '.45';
+          el.style.outline = match ? '1px solid color-mix(in oklab, var(--color-primary) 45%, transparent)' : 'none';
+        });
+      });
+    }
+
+    function initActiveNav() {
+      const links = $$('.nav-link');
+      const sections = $$('.content section[id]');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id));
+          }
+        });
+      }, { root: $('.content'), threshold: 0.35 });
+      sections.forEach(s => observer.observe(s));
+    }
+
+    function init() { renderNav(); buildPage(); initTheme(); initSearch(); initActiveNav(); makeCharts(); }
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
